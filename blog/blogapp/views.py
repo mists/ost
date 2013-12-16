@@ -92,8 +92,16 @@ def create_post(request, bid):
 	return render(request, "create_post.html", data_dict)
 
 def new_post(request, bid):
-	return HttpResponse("Test")
-
-
-
+	if request.POST:
+		post_title = request.POST.get('post_title')
+		post_body = request.POST.get('post_body')
+		print post_body
+		post = Post()
+		post.title = post_title
+		post.body = post_body
+		post.author = request.user
+		blog = Blog.objects.get(id = bid)
+		post.blog = blog
+		post.save()
+		return HttpResponseRedirect(reverse('blog', args=[bid]))
  
