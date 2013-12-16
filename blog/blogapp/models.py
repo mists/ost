@@ -25,6 +25,8 @@ class Post(models.Model):
 	tags = models.ManyToManyField(Tag)
 	def __unicode__(self):
 		return self.title
+	def get_body_capped(self):
+		return self.body[:500]
 
 
 

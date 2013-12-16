@@ -10,6 +10,7 @@
       <p>Posts list:</p>
       {% for post in posts %}
           <p><a href="posts/{{post.id}}">{{ post.title }}</a></p>
+          <p>{{post.get_body_capped }}<p/>
       {% endfor %}
   </body>
 </html>
