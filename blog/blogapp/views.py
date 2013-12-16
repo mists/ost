@@ -112,3 +112,20 @@ def post(request, bid, pid):
 	post = Post.objects.get(id=pid)
 	data_dict['post'] = post
 	return render(request, "post.html", data_dict)
+
+def edit_post(request, bid, pid):
+	post = Post.objects.get(id = pid)
+	data_dict = {}
+	data_dict['post'] = post
+	data_dict['bid'] = bid
+	return render(request, "edit_post.html", data_dict)
+
+def update_post(request, bid, pid):
+	if request.POST:
+		post = Post.objects.get(id = pid)
+		post.title = request.POST.get("post_title")
+		post.body = request.POST.get("post_body")
+		post.mtime = datetime.now()
+		post.save()
+		return HttpResponseRedirect(reverse('blog', args=[bid]))
+
