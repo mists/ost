@@ -1,0 +1,16 @@
+<html>
+  <head>
+  <title>Blog</title>
+  {% load url from future %}
+  </head>
+  <body>
+    <h1>Welcome to your blog</h1>
+    <h3>Login</h3>
+    <form name="login" action="{%url 'check_login' %}" method="post">
+    	{% csrf_token %} 
+    	Username: <input type="text" name="user"><br>
+    	Password: <input type="password" name="pwd"><br>
+    	<input type="submit" value="Login">
+    </form>
+  </body>
+</html>

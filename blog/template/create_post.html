@@ -1,0 +1,15 @@
+  <html>
+  <head>
+  <title>Blog</title>
+  {% load url from future %}
+  </head>
+  <body>
+    <h1>Welcome to your blog</h1>
+    <h3>Create Post</h3>
+    <form name="create_post" action="{%url 'new_post' blog_id %}" method="get">
+    	Title: <input type="text" name="post_title"><br>
+    	Text:  <textarea name="text" id="post_body" cols="50" rows="20"></textarea><br>
+    	<input type="submit" value="post">
+    </form>
+  </body>
+</html>

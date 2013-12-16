@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Blog</title>
+  </head>
+  <body>
+    <h1>Welcome to your blog</h1>
+      <h3><a href="logout">Logout</a></h3>
+      <p>Welcome {{user.username}}</p>
+      <h3><a href="create_post">New post</a></h3>
+      <p>Posts list:</p>
+      {% for post in posts %}
+          <p><a href="posts/{{post.id}}">{{ post.title }}</a></p>
+      {% endfor %}
+  </body>
+</html>

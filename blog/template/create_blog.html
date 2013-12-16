@@ -1,0 +1,22 @@
+  <html>
+  <head>
+  <title>Blog</title>
+  {% load url from future %}
+  </head>
+  <body>
+    <h1>Welcome to your blog</h1>
+    <h3>Create Blog</h3>
+    <form name="create_blog" action="{%url 'new_blog' %}" method="get">
+    	{% csrf_token %} 
+    	Blog Name: <input type="text" name="blog_name"><br>
+    	Add authors: 
+    	<select name="authors" multiple size=5>
+    		{% for u in users %}
+    		   <option value="{{u.username}}"> {{ u.username }} </option>
+    		{% endfor %}
+        </select>
+        <br>
+    	<input type="submit" value="create">
+    </form>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Blog</title>
+  </head>
+  <body>
+    <h1>Welcome to your blog</h1>
+    {% if not user.is_authenticated %}
+      <h3><a href="signup">Signup</a></h3>
+      <h3><a href="login">Login</a></h3>
+    {% else %}
+      <h3><a href="logout">Logout</a></h3>
+      <p>Welcome {{user.username}}</p>
+      <h3><a href="create_blog">Create Blog</a></h3>
+      <p>Blog list:</p>
+      {% for blog in blogs %}
+          <p><a href="blogs/{{blog.id}}">{{ blog.blog_name }}</a></p>
+      {% endfor %}
+    {% endif%}
+  </body>
+</html>

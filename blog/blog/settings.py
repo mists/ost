@@ -107,6 +107,7 @@ ROOT_URLCONF = 'blog.urls'
 WSGI_APPLICATION = 'blog.wsgi.application'
 
 TEMPLATE_DIRS = (
+    '/home/zhaohui/Documents/ost/blog/template'
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
