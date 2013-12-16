@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate
 from blogapp.models import Blog
 from blogapp.models import Post
 import django.contrib.auth 
+from datetime import datetime
 
 def home(request):
     data_dict = {}
@@ -99,9 +100,15 @@ def new_post(request, bid):
 		post = Post()
 		post.title = post_title
 		post.body = post_body
+		post.ctime = datetime.now()
+		post.mtime = datetime.now()
 		post.author = request.user
 		blog = Blog.objects.get(id = bid)
 		post.blog = blog
 		post.save()
 		return HttpResponseRedirect(reverse('blog', args=[bid]))
- 
+def post(request, bid, pid):
+	data_dict = {}
+	post = Post.objects.get(id=pid)
+	data_dict['post'] = post
+	return render(request, "post.html", data_dict)

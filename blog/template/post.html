@@ -6,7 +6,10 @@
     <h1>Welcome to your blog</h1>
       <h3><a href="logout">Logout</a></h3>
       <p>Welcome {{user.username}}</p>
-      <h3>{{post_title}}</h3>
-      <p>{{post_body}}</p>
+      <h3>{{post.title}}</h3>
+      <p>{{post.body}}</p>
+      <p>created: {{post.ctime}}</p>
+      <p>last modified: {{post.mtime}}</p>
+      <p><a href="edit">edit</a></p>
   </body>
 </html>
