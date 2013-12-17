@@ -10,9 +10,13 @@ from django.conf import settings
 from django.http import Http404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from blogapp.models import Blog, Tag, Post
+from blogapp.models import Blog, Tag, Post, ImageFile
 import django.contrib.auth 
 from datetime import datetime
+
+class UploadForm(forms.Form):
+	title = forms.CharField()
+	image_file = forms.FileField()
 
 def home(request):
     data_dict = {}
@@ -171,3 +175,23 @@ def tag(request, bid, tid):
 		data_dict['posts'] = posts_list
 		data_dict['blog_id'] = bid
 	return render(request, "post_list.html", data_dict)
+
+def upload(request):
+	data_dict = {}
+	return render(request, "upload.html", data_dict)
+
+def upload_image(request):
+	print 0
+	if request.POST:
+		print 1
+		form = UploadForm(request.POST, request.FILES)
+		print 2
+		if form.is_valid():
+			print 3
+			image = ImageFile(image_file = request.FILES['image_file'])
+			print image.image_file.url
+			image.save()
+			return HttpResponse('Succeed!')
+	else:
+		print 4
+		return HttpResponse('Error!')

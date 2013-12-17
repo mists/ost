@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-
+from django.conf.urls.static import static
+from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
@@ -12,6 +13,8 @@ urlpatterns = patterns('',
     url(r'^signup_user/', 'blogapp.views.signup_user', name='signup_user'),
     url(r'^check_login/', 'blogapp.views.check_login', name='check_login'),
     url(r'^create_blog/', 'blogapp.views.create_blog', name='create_blog'),
+    url(r'^upload/', 'blogapp.views.upload', name='upload'),
+    url(r'^upload_image/', 'blogapp.views.upload_image', name='upload_image'),
     url(r'^new_blog/', 'blogapp.views.new_blog', name='new_blog'),
     url(r'^blogs/(\d+)/$', 'blogapp.views.blog', name='blog'),
     url(r'^blogs/(\d+)/create_post/$', 'blogapp.views.create_post', name='create_post'),
@@ -27,4 +30,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-)
+)+ static (settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
++ static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

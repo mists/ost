@@ -11,6 +11,7 @@
       <h3><a href="logout">Logout</a></h3>
       <p>Welcome {{user.username}}</p>
       <h3><a href="create_blog">Create Blog</a></h3>
+      <h3><a href="upload">Upload Image</a></h3>
       <p>Blog list:</p>
       {% for blog in blogs %}
           <p><a href="blogs/{{blog.id}}">{{ blog.blog_name }}</a></p>

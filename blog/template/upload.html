@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>
+      Blog
+    </title>
+    {% load url from future %}
+  </head>
+  <body>
+    <form action="{% url 'upload_image' %}"
+      enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      <p>
+        Name<br>
+        <input type="text" name="title" size="30">
+      </p>
+      <p>
+        Please select your image<br>
+        <input type="file" name="image_file">
+      </p>
+      <div>
+        <input type="submit" value="upload">
+      </div>
+   </form>
+  </boady>
+</html>

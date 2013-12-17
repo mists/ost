@@ -66,3 +66,6 @@ class Post(models.Model):
 				tags_str += tag.tag_name
 		print tags_str
 		return tags_str
+
+class ImageFile(models.Model):
+    image_file = models.FileField(upload_to='images/')
