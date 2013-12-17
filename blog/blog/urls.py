@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^blogs/(\d+)/posts/(\d+)/$', 'blogapp.views.post', name='post'),
     url(r'^blogs/(\d+)/posts/(\d+)/edit/$', 'blogapp.views.edit_post', name='edit_post'),
     url(r'^blogs/(\d+)/posts/(\d+)/update_post/$', 'blogapp.views.update_post', name='update_post'),
+    url(r'^blogs/(\d+)/tag/(\d+)/$', 'blogapp.views.tag', name='tag'),
     # url(r'^blog/', include('blog.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -10,8 +10,7 @@ from django.conf import settings
 from django.http import Http404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from blogapp.models import Blog
-from blogapp.models import Post
+from blogapp.models import Blog, Tag, Post
 import django.contrib.auth 
 from datetime import datetime
 
@@ -75,7 +74,9 @@ def new_blog(request):
 			blog.blog_name = blog_name
 			blog.owner = request.user
 			blog.save()
-			blog.users.add(*authors)
+			for author_name in authors:
+				author = User.objects.get(username = author_name)
+				blog.users.add(author)
 			blog.save()
 			return HttpResponseRedirect(reverse('home'))
 
@@ -96,21 +97,39 @@ def new_post(request, bid):
 	if request.POST:
 		post_title = request.POST.get('post_title')
 		post_body = request.POST.get('post_body')
-		print post_body
+		tags = request.POST.get('tag')
 		post = Post()
 		post.title = post_title
 		post.body = post_body
-		post.ctime = datetime.now()
-		post.mtime = datetime.now()
+		post.ctime = datetime.now().strftime("%Y-%m-%d %H:%M")
+		post.mtime = datetime.now().strftime("%Y-%m-%d %H:%M")
 		post.author = request.user
 		blog = Blog.objects.get(id = bid)
 		post.blog = blog
 		post.save()
+		if tags is not None:
+			print tags
+			tags_list = tags.split(',')
+			print len(tags_list)
+			for tag_name in tags_list:
+				tag_name = tag_name.strip()
+				if len(Tag.objects.filter(tag_name = tag_name)) <= 0:
+					tag = Tag()
+					tag.tag_name = tag_name
+					tag.save()
+					post.tags.add(tag)
+					post.save()
+				else:
+					tag = Tag.objects.get(tag_name = tag_name)
+					post.tags.add(tag)
+					post.save()
 		return HttpResponseRedirect(reverse('blog', args=[bid]))
+
 def post(request, bid, pid):
 	data_dict = {}
 	post = Post.objects.get(id=pid)
 	data_dict['post'] = post
+	data_dict['blog_id'] = bid
 	return render(request, "post.html", data_dict)
 
 def edit_post(request, bid, pid):
@@ -125,7 +144,15 @@ def update_post(request, bid, pid):
 		post = Post.objects.get(id = pid)
 		post.title = request.POST.get("post_title")
 		post.body = request.POST.get("post_body")
-		post.mtime = datetime.now()
+		post.mtime = datetime.now().strftime("%Y-%m-%d %H:%M")
 		post.save()
 		return HttpResponseRedirect(reverse('blog', args=[bid]))
 
+def tag(request, bid, tid):
+	data_dict = {}
+	if tid is not None:
+		tag = Tag.objects.get(pk=tid)
+		posts_list = tag.posts.filter(blog = bid)
+		data_dict['posts'] = posts_list
+		data_dict['blog_id'] = bid
+	return render(request, "post_list.html", data_dict)

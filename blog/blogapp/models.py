@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Tag(models.Model):
-	tag_name = models.CharField(max_length = 200)
+	id = models.AutoField(primary_key=True)
+	tag_name = models.CharField(unique=True, max_length = 200)
 	def __unicode__(self):
 		return self.tag_name
 
@@ -20,9 +21,9 @@ class Post(models.Model):
 	author = models.ForeignKey(User, related_name="post_author")
 	title = models.CharField(max_length = 100)
 	body = models.TextField()
-	ctime = models.TimeField(auto_now = False, auto_now_add = True)
-	mtime = models.TimeField(auto_now = True, auto_now_add = False)
-	tags = models.ManyToManyField(Tag)
+	ctime = models.DateTimeField(auto_now = False, auto_now_add = True)
+	mtime = models.DateTimeField(auto_now = True, auto_now_add = False)
+	tags = models.ManyToManyField(Tag, related_name='posts')
 	def __unicode__(self):
 		return self.title
 	def get_body_capped(self):
