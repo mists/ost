@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate
 from blogapp.models import Blog, Tag, Post, ImageFile
 import django.contrib.auth 
 from datetime import datetime
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class UploadForm(forms.Form):
 	title = forms.CharField()
@@ -89,7 +90,17 @@ def blog(request, bid):
 	data_dict['user'] = request.user
 	data_dict['blog_id'] = bid
 	posts = Post.objects.filter(blog_id = bid)
-	data_dict['posts'] = posts
+	paginator = Paginator(posts, 10)
+	page = request.GET.get('page')
+	try:
+		post_page = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		post_page = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		post_page = paginator.page(paginator.num_pages)
+	data_dict['posts'] = post_page
 	return render(request, "blog.html", data_dict)
 
 def create_post(request, bid):
