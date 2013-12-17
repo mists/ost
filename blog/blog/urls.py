@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.conf import settings
+from blogapp.rss import RssFeed
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
@@ -23,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^blogs/(\d+)/posts/(\d+)/edit/$', 'blogapp.views.edit_post', name='edit_post'),
     url(r'^blogs/(\d+)/posts/(\d+)/update_post/$', 'blogapp.views.update_post', name='update_post'),
     url(r'^blogs/(\d+)/tag/(\d+)/$', 'blogapp.views.tag', name='tag'),
+    url(r'^rss/(?P<blog_id>\d+)/$', RssFeed(), name='rss'),
     # url(r'^blog/', include('blog.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
