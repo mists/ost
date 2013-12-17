@@ -9,7 +9,7 @@
       <p>Welcome {{user.username}}</p>
       <p>Posts list:</p>
       {% for post in posts %}
-          <p><a href="{{post.id}}">{{ post.title }}</a></p>
+          <p><a href="{% url 'post' blog_id post.id %}">{{ post.title }}</a></p>
           <p>{{post.get_body_capped }}<p/>
           <p>created: {{post.ctime}}</p>
           <p>last modified: {{post.mtime}}</p>

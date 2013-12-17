@@ -110,7 +110,6 @@ def new_post(request, bid):
 		if tags is not None:
 			print tags
 			tags_list = tags.split(',')
-			print len(tags_list)
 			for tag_name in tags_list:
 				tag_name = tag_name.strip()
 				if len(Tag.objects.filter(tag_name = tag_name)) <= 0:
@@ -145,7 +144,23 @@ def update_post(request, bid, pid):
 		post.title = request.POST.get("post_title")
 		post.body = request.POST.get("post_body")
 		post.mtime = datetime.now().strftime("%Y-%m-%d %H:%M")
+		post.tags.remove()
 		post.save()
+		tags = request.POST.get('tag')
+		if tags is not None:
+			tags_list = tags.split(',')
+			for tag_name in tags_list:
+				tag_name = tag_name.strip()
+				if len(Tag.objects.filter(tag_name = tag_name)) <= 0:
+					tag = Tag()
+					tag.tag_name = tag_name
+					tag.save()
+					post.tags.add(tag)
+					post.save()
+				else:
+					tag = Tag.objects.get(tag_name = tag_name)
+					post.tags.add(tag)
+					post.save()
 		return HttpResponseRedirect(reverse('blog', args=[bid]))
 
 def tag(request, bid, tid):
