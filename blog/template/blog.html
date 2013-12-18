@@ -7,7 +7,7 @@
     <h1>Welcome to your blog</h1>
       <h3><a href="logout">Logout</a></h3>
       <p>Welcome {{user.username}}</p>
-      <h3><a href="{% url 'rss' blog_id %}">RSS Feed</a></h3>
+      <h3><a href="{% url 'rss' %}">RSS Feed</a></h3>
       <h3><a href="create_post">New post</a></h3>
       <p>Posts list:</p>
       {% for post in posts %}

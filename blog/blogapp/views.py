@@ -212,3 +212,6 @@ def logout(request):
 	django.contrib.auth.logout(request)
 	return HttpResponse('Logout succeed!')
 
+def rss(request):
+	return HttpResponse('RSS has been blocked!')
+
