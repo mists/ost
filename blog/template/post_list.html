@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1>Welcome to your blog</h1>
-      <h3><a href="logout">Logout</a></h3>
+      <h3><a href="{% url 'logout' %}">Logout</a></h3>
       <p>Welcome {{user.username}}</p>
       <p>Posts list:</p>
       {% for post in posts %}

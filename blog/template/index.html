@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Blog</title>
+    {% load url from future %}
   </head>
   <body>
     <h1>Welcome to your blog</h1>
@@ -8,7 +9,7 @@
       <h3><a href="signup">Signup</a></h3>
       <h3><a href="login">Login</a></h3>
     {% else %}
-      <h3><a href="logout">Logout</a></h3>
+      <h3><a href="{% url 'logout' %}">Logout</a></h3>
       <p>Welcome {{user.username}}</p>
       <h3><a href="create_blog">Create Blog</a></h3>
       <h3><a href="upload">Upload Image</a></h3>
