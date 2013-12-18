@@ -6,8 +6,8 @@
   <body>
     <h1>Welcome to your blog</h1>
     {% if not user.is_authenticated %}
-      <h3><a href="signup">Signup</a></h3>
-      <h3><a href="login">Login</a></h3>
+      <h3><a href="{% url 'signup' %}">Signup</a></h3>
+      <h3><a href="{% url 'login' %}">Login</a></h3>
     {% else %}
       <h3><a href="{% url 'logout' %}">Logout</a></h3>
       <p>Welcome {{user.username}}</p>
