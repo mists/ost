@@ -79,8 +79,6 @@ def new_blog(request):
 			return HttpResponse("Blog name exists!")
 		else:
 			authors = request.GET.getlist('authors')
-			print len(authors)
-			print authors[0]
 			blog = Blog()
 			blog.blog_name = blog_name
 			blog.owner = request.user
