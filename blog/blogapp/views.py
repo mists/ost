@@ -11,7 +11,7 @@ from django.http import Http404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from blogapp.models import Blog, Tag, Post, ImageFile
-import django.contrib.auth 
+import django.contrib.auth
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -21,8 +21,14 @@ class UploadForm(forms.Form):
 
 def home(request):
     data_dict = {}
-    blogs = Blog.objects.filter(owner = request.user)
+    blogs = None
+    if request.user.is_authenticated():
+    	blogs = Blog.objects.filter(owner = request.user)
+    else:
+    	blogs = Blog.objects.all()
+    	print len(blogs)
     data_dict['blogs'] = blogs
+    print len(blogs)
     return render(request, 'index.html', data_dict)
 
 def login(request):
@@ -192,17 +198,17 @@ def upload(request):
 	return render(request, "upload.html", data_dict)
 
 def upload_image(request):
-	print 0
 	if request.POST:
-		print 1
 		form = UploadForm(request.POST, request.FILES)
-		print 2
 		if form.is_valid():
-			print 3
 			image = ImageFile(image_file = request.FILES['image_file'])
 			print image.image_file.url
 			image.save()
 			return HttpResponse('Succeed!')
 	else:
-		print 4
 		return HttpResponse('Error!')
+
+def logout(request):
+	django.contrib.auth.logout(request)
+	return HttpResponse('Logout succeed!')
+

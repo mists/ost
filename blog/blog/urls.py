@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'blogapp.views.home', name='home'),
     url(r'^login/', 'blogapp.views.login', name='login'),
+    url(r'^logout/', 'blogapp.views.logout', name='logout'),
     url(r'^signup/', 'blogapp.views.signup', name='signup'),
     url(r'^signup_user/', 'blogapp.views.signup_user', name='signup_user'),
     url(r'^check_login/', 'blogapp.views.check_login', name='check_login'),
