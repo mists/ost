@@ -93,7 +93,7 @@ def blog(request, bid):
 	data_dict = {}
 	data_dict['user'] = request.user
 	data_dict['blog_id'] = bid
-	posts = Post.objects.filter(blog_id = bid)
+	posts = Post.objects.filter(blog_id = bid).order_by('-ctime')
 	paginator = Paginator(posts, 10)
 	page = request.GET.get('page')
 	try:
